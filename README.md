@@ -165,7 +165,7 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq 
 
 7. **What was the first request issued by the user ‘level1’?**
 
-```json
+```sh
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_7J9NEIxrjJsrlXSd.json | jq '.Records[0].eventName'
 "CreateLogStream"
 ```
