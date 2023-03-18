@@ -28,7 +28,7 @@ Environment The credentials above give you access to the Security account, which
 
 2. **What is the ‘creation’ date of the bucket ‘flaws2-logs’?**
 
-```json
+```sh
 aws s3api list-buckets
 
 {
