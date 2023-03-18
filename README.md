@@ -28,7 +28,6 @@ Environment The credentials above give you access to the Security account, which
 
 2. **What is the ‘creation’ date of the bucket ‘flaws2-logs’?**
 
-
 - aws s3api list-buckets
 
 ```json
@@ -46,8 +45,7 @@ Environment The credentials above give you access to the Security account, which
 }
 ```
 
-- The answer to the question is as below date-time format. 2018-11-19 20:54:31 UTC
-
+    - The answer to the question is as below date-time format. 2018-11-19 20:54:31 UTC
 
 3. **What is the name of the first generated event -according to time?**
 
@@ -57,7 +55,6 @@ aws s3 cp s3://flaws2-logs/AWSLogs/653711331788/CloudTrail/us-east-1/2018/11/28/
 cat 653711331788_CloudTrail_us-east-1_20181128T2235Z_cR9ra7OH1rytWyXY.json | jq '.Records[0].eventName'
 "AssumeRole"
 ```
-
 4. **What source IP address generated the event dated 2018-11-28 at 23:03:20 UTC?**
 
 ```
