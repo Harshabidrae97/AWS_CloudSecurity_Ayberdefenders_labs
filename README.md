@@ -28,9 +28,10 @@ Environment The credentials above give you access to the Security account, which
 
 2. **What is the ‘creation’ date of the bucket ‘flaws2-logs’?**
 
-```json
-aws s3api list-buckets
 
+- aws s3api list-buckets
+
+```json
 {
     "Buckets": [
         {
@@ -50,7 +51,7 @@ aws s3api list-buckets
 
 3. **What is the name of the first generated event -according to time?**
 
-```sh
+```
 aws s3 cp s3://flaws2-logs/AWSLogs/653711331788/CloudTrail/us-east-1/2018/11/28/653711331788_CloudTrail_us-east-1_20181128T2235Z_cR9ra7OH1rytWyXY.json.gz . --no-sign-request
 
 cat 653711331788_CloudTrail_us-east-1_20181128T2235Z_cR9ra7OH1rytWyXY.json | jq '.Records[0].eventName'
@@ -59,15 +60,18 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2235Z_cR9ra7OH1rytWyXY.json | jq 
 
 4. **What source IP address generated the event dated 2018-11-28 at 23:03:20 UTC?**
 
-```sh
+```
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_83VTWZ8Z0kiEC7Lq.json | jq '.Records[0].sourceIPAddress'
 "34.234.236.212"
 ```
 
 5. **Which IP address does not belong to Amazon AWS infrastructure?**
 
-```json
+```
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq '.Records[0]'
+```
+
+```json
 {
   "eventVersion": "1.05",
   "userIdentity": {
@@ -111,15 +115,17 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq 
 
 - **Narrowing down the answer further as below.**
 
-```sh
+```
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq '.Records[0].sourceIPAddress'
 "104.102.221.250"
 ```
 
 6. **Which user issued the ‘ListBuckets’ request?**
 
-```json
+```
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq '.Records[0]'
+```
+```json
 {
   "eventVersion": "1.05",
   "userIdentity": {
@@ -158,21 +164,21 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq 
 ```
 - **Narrowing down the answer to username as below**
 
-```sh
+```
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq '.Records[0].userIdentity.sessionContext.sessionIssuer.userName'
 "level3"
 ```
 
 7. **What was the first request issued by the user ‘level1’?**
 
-```sh
+```
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_7J9NEIxrjJsrlXSd.json | jq '.Records[0].eventName'
 "CreateLogStream"
 ```
 
 # Common vulnerabilities and threats that S3 buckets may face:
 
-```sh
+```
 1. Misconfiguration: S3 buckets can be accidentally or inadvertently misconfigured, making them publicly accessible or allowing unauthorized access to sensitive data.
 
 2. Access Control: Improperly configured access controls can also lead to unauthorized access and data breaches.
@@ -191,7 +197,7 @@ To mitigate these vulnerabilities and threats, it's important to implement prope
 ```
 # Here are some detailed steps you can take to secure your S3 bucket:
 
-```sh
+```
 1. Secure access to your S3 bucket by setting up AWS Identity and Access Management (IAM) policies. IAM policies allow you to control who can access your S3 bucket and what actions they can perform.
 
 2. Implement encryption to protect your data in transit and at rest. You can use AWS Key Management Service (KMS) to manage your encryption keys and encrypt data stored in your S3 bucket. You can also use SSL/TLS to encrypt data in transit.
