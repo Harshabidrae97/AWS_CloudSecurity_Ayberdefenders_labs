@@ -28,7 +28,7 @@ Environment The credentials above give you access to the Security account, which
 
 2. **What is the ‘creation’ date of the bucket ‘flaws2-logs’?**
 
-```sh
+```json
 aws s3api list-buckets
 
 {
@@ -66,7 +66,7 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_83VTWZ8Z0kiEC7Lq.json | jq 
 
 5. **Which IP address does not belong to Amazon AWS infrastructure?**
 
-```sh
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq '.Records[0]'
 {
   "eventVersion": "1.05",
@@ -118,7 +118,7 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq 
 
 6. **Which user issued the ‘ListBuckets’ request?**
 
-```sh
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq '.Records[0]'
 {
   "eventVersion": "1.05",
