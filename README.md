@@ -179,7 +179,7 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_7J9NEIxrjJsrlXSd.json | jq 
 To mitigate these vulnerabilities and threats, it's important to implement proper security controls and best practices, such as restricting access to S3 buckets, regularly monitoring and logging bucket activity, implementing encryption, and regularly reviewing and updating configurations and settings. It's also important to stay up to date with the latest security updates and patches, and to regularly train employees on security best practices.
 ```
 # Here are some detailed steps you can take to secure your S3 bucket:
-
+```
 1. Secure access to your S3 bucket by setting up AWS Identity and Access Management (IAM) policies. IAM policies allow you to control who can access your S3 bucket and what actions they can perform.
 
 2. Implement encryption to protect your data in transit and at rest. You can use AWS Key Management Service (KMS) to manage your encryption keys and encrypt data stored in your S3 bucket. You can also use SSL/TLS to encrypt data in transit.
@@ -195,3 +195,4 @@ To mitigate these vulnerabilities and threats, it's important to implement prope
 7. Implement access controls to prevent unauthorized access to your S3 bucket. You can use AWS Organizations to manage access across multiple AWS accounts and services, and also use Amazon S3 Access Points to control access to specific parts of your S3 bucket.
 
 By following these steps, you can ensure that your S3 bucket is highly secure and your data is protected from unauthorized access and data breaches.
+```
