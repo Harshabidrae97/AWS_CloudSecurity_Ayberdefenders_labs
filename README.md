@@ -9,6 +9,7 @@
 * Welcome, Defender! As an incident responder, we’re granting you access to the AWS account called “Security” as an IAM user. This account contains a copy of the logs during the time period of the incident and has the ability to assume the “Security” role in the target account so you can look around to spot the misconfigurations that allowed for this attack to happen.
 
 ## Credentials
+
 * Your IAM credentials for the Security account:
 
 * Login: https://flaws2-security.signin.aws.amazon.com/console
@@ -21,12 +22,13 @@
 Environment The credentials above give you access to the Security account, which can assume the role of “security” in the Target account. You also have access to an S3 bucket, named flaws2_logs, in the Security account, that contains the CloudTrail logs recorded during a successful compromise
 
 # Solution
+
 1. **What is the full AWS CLI command used to configure credentials?**
 - aws configure
 
 2. **What is the ‘creation’ date of the bucket ‘flaws2-logs’?**
 
-```sh
+```json
 aws s3api list-buckets
 
 {
@@ -42,25 +44,29 @@ aws s3api list-buckets
     }
 }
 ```
+
 - The answer to the question is as below date-time format. 2018-11-19 20:54:31 UTC
 
 
 3. **What is the name of the first generated event -according to time?**
-```sh
+
+```json
 aws s3 cp s3://flaws2-logs/AWSLogs/653711331788/CloudTrail/us-east-1/2018/11/28/653711331788_CloudTrail_us-east-1_20181128T2235Z_cR9ra7OH1rytWyXY.json.gz . --no-sign-request
 
 cat 653711331788_CloudTrail_us-east-1_20181128T2235Z_cR9ra7OH1rytWyXY.json | jq '.Records[0].eventName'
 "AssumeRole"
 ```
+
 4. **What source IP address generated the event dated 2018-11-28 at 23:03:20 UTC?**
-```sh
+
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_83VTWZ8Z0kiEC7Lq.json | jq '.Records[0].sourceIPAddress'
 "34.234.236.212"
 ```
 
 5. **Which IP address does not belong to Amazon AWS infrastructure?**
 
-```sh
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq '.Records[0]'
 {
   "eventVersion": "1.05",
@@ -102,15 +108,17 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq 
   "sharedEventID": "9deca33a-d705-42ef-b425-cafe63c5011c"
 }
 ```
+
 - **Narrowing down the answer further as below.**
 
-```sh
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq '.Records[0].sourceIPAddress'
 "104.102.221.250"
 ```
 
 6. **Which user issued the ‘ListBuckets’ request?**
-```sh
+
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq '.Records[0]'
 {
   "eventVersion": "1.05",
@@ -149,18 +157,21 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq 
 }
 ```
 - **Narrowing down the answer to username as below**
-```sh
+
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq '.Records[0].userIdentity.sessionContext.sessionIssuer.userName'
 "level3"
 ```
 
 7. **What was the first request issued by the user ‘level1’?**
-```sh
+
+```json
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_7J9NEIxrjJsrlXSd.json | jq '.Records[0].eventName'
 "CreateLogStream"
 ```
 
 # Common vulnerabilities and threats that S3 buckets may face:
+
 ```js
 1. Misconfiguration: S3 buckets can be accidentally or inadvertently misconfigured, making them publicly accessible or allowing unauthorized access to sensitive data.
 
