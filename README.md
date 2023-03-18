@@ -71,7 +71,7 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_83VTWZ8Z0kiEC7Lq.json | jq 
 cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq '.Records[0]'
 ```
 
-```json
+```sh
 {
   "eventVersion": "1.05",
   "userIdentity": {
@@ -125,7 +125,7 @@ cat 653711331788_CloudTrail_us-east-1_20181128T2305Z_zKlMhON7EpHala9u.json | jq 
 ```
 cat 653711331788_CloudTrail_us-east-1_20181128T2310Z_jQajCuiobojD8I4y.json | jq '.Records[0]'
 ```
-```json
+```sh
 {
   "eventVersion": "1.05",
   "userIdentity": {
